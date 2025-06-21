@@ -49,4 +49,9 @@ export class AuthorsService {
     const updated = Object.assign(author, dto);
     return this.authorRepo.save(updated);
   }
+
+  async remove(id: string): Promise<void> {
+    const author = await this.findOne(id);
+    await this.authorRepo.remove(author);
+  }
 }

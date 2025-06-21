@@ -43,4 +43,9 @@ export class AuthorsController {
   ) {
     return this.authorsService.update(id, updateAuthorDto);
   }
+
+  @Delete(':id')
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.authorsService.remove(id);
+  }
 }
