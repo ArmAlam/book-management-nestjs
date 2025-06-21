@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, ILike } from 'typeorm';
 import { Author } from './author.entity';
 import { CreateAuthorDto } from './dto/create-author.dto';
+import { UpdateAuthorDto } from './dto/update-author.dto';
 
 @Injectable()
 export class AuthorsService {
@@ -41,5 +42,11 @@ export class AuthorsService {
     const author = await this.authorRepo.findOne({ where: { id } });
     if (!author) throw new NotFoundException('Author not found');
     return author;
+  }
+
+  async update(id: string, dto: UpdateAuthorDto): Promise<Author> {
+    const author = await this.findOne(id);
+    const updated = Object.assign(author, dto);
+    return this.authorRepo.save(updated);
   }
 }
