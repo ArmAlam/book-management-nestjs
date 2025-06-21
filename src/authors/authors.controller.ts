@@ -30,4 +30,22 @@ export class AuthorsController {
   ) {
     return this.authorsService.findAll({ page, limit, search });
   }
+
+  @Get(':id')
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.authorsService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() updateAuthorDto: UpdateAuthorDto,
+  ) {
+    return this.authorsService.update(id, updateAuthorDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.authorsService.remove(id);
+  }
 }
