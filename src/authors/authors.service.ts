@@ -52,6 +52,8 @@ export class AuthorsService {
 
   async remove(id: number): Promise<void> {
     const author = await this.findOne(id);
+
+    // TODO: REMOVE ASSOCIATED BOOKS
     await this.authorRepo.remove(author);
   }
 }
