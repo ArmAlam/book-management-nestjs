@@ -22,5 +22,12 @@ export class AuthorsController {
     return this.authorsService.create(createAuthorDto);
   }
 
- 
+  @Get()
+  findAll(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('search') search?: string,
+  ) {
+    return this.authorsService.findAll({ page, limit, search });
+  }
 }
