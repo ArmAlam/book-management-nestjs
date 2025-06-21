@@ -38,19 +38,19 @@ export class AuthorsService {
     });
   }
 
-  async findOne(id: string): Promise<Author> {
+  async findOne(id: number): Promise<Author> {
     const author = await this.authorRepo.findOne({ where: { id } });
     if (!author) throw new NotFoundException('Author not found');
     return author;
   }
 
-  async update(id: string, dto: UpdateAuthorDto): Promise<Author> {
+  async update(id: number, dto: UpdateAuthorDto): Promise<Author> {
     const author = await this.findOne(id);
     const updated = Object.assign(author, dto);
     return this.authorRepo.save(updated);
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     const author = await this.findOne(id);
     await this.authorRepo.remove(author);
   }

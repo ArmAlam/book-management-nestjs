@@ -7,7 +7,7 @@ import {
   Delete,
   Patch,
   Query,
-  ParseUUIDPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
@@ -32,20 +32,20 @@ export class AuthorsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  findOne(@Param('id', new ParseIntPipe()) id: number) {
     return this.authorsService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('id', new ParseIntPipe()) id: number,
     @Body() updateAuthorDto: UpdateAuthorDto,
   ) {
     return this.authorsService.update(id, updateAuthorDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+  remove(@Param('id', new ParseIntPipe()) id: number) {
     return this.authorsService.remove(id);
   }
 }

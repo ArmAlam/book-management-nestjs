@@ -8,8 +8,8 @@ import {
 
 @Entity()
 export class Author {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   firstName: string;
