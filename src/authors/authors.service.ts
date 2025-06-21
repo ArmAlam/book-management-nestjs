@@ -36,4 +36,10 @@ export class AuthorsService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  async findOne(id: string): Promise<Author> {
+    const author = await this.authorRepo.findOne({ where: { id } });
+    if (!author) throw new NotFoundException('Author not found');
+    return author;
+  }
 }

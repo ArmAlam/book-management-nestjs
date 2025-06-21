@@ -30,4 +30,9 @@ export class AuthorsController {
   ) {
     return this.authorsService.findAll({ page, limit, search });
   }
+
+  @Get(':id')
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.authorsService.findOne(id);
+  }
 }
