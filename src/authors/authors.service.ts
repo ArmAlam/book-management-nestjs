@@ -16,5 +16,24 @@ export class AuthorsService {
     return this.authorRepo.save(author);
   }
 
-  
+  async findAll(query: {
+    page?: number;
+    limit?: number;
+    search?: string;
+  }): Promise<Author[]> {
+    const { page = 1, limit = 10, search } = query;
+    const where = search
+      ? [
+          { firstName: ILike(`%${search}%`) },
+          { lastName: ILike(`%${search}%`) },
+        ]
+      : undefined;
+
+    return this.authorRepo.find({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+  }
 }
