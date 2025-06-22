@@ -92,4 +92,9 @@ export class BooksService {
     Object.assign(book, dto);
     return this.bookRepo.save(book);
   }
+
+  async remove(id: number): Promise<void> {
+    const book = await this.findOne(id);
+    await this.bookRepo.remove(book);
+  }
 }
