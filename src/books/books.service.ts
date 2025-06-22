@@ -67,4 +67,13 @@ export class BooksService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  async findOne(id: number): Promise<Book> {
+    const book = await this.bookRepo.findOne({
+      where: { id },
+      relations: ['author'],
+    });
+    if (!book) throw new NotFoundException('Book not found');
+    return book;
+  }
 }

@@ -31,4 +31,9 @@ export class BooksController {
   ) {
     return this.booksService.findAll({ page, limit, search, authorId });
   }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.booksService.findOne(id);
+  }
 }
