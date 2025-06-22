@@ -21,4 +21,14 @@ export class BooksController {
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
+
+  @Get()
+  findAll(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('search') search?: string,
+    @Query('authorId') authorId?: string,
+  ) {
+    return this.booksService.findAll({ page, limit, search, authorId });
+  }
 }

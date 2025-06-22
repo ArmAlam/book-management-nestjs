@@ -37,4 +37,34 @@ export class BooksService {
     const book = this.bookRepo.create({ ...dto, author });
     return this.bookRepo.save(book);
   }
+
+  async findAll(query: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    authorId?: string;
+  }): Promise<Book[]> {
+    const { page = 1, limit = 10, search, authorId } = query;
+    const parsedAuthorId = authorId ? parseInt(authorId, 10) : undefined;
+
+    if (authorId && isNaN(parsedAuthorId as number)) {
+      throw new BadRequestException('authorId must be a number');
+    }
+
+    const where: any = {};
+    if (search) {
+      where.title = ILike(`%${search}%`);
+    }
+    if (parsedAuthorId) {
+      where.authorId = parsedAuthorId;
+    }
+
+    return this.bookRepo.find({
+      where,
+      relations: ['author'],
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+    });
+  }
 }
