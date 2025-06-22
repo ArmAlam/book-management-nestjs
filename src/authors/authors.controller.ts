@@ -8,6 +8,8 @@ import {
   Patch,
   Query,
   ParseIntPipe,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
@@ -45,6 +47,7 @@ export class AuthorsController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id', new ParseIntPipe()) id: number) {
     return this.authorsService.remove(id);
   }
