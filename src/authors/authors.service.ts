@@ -45,9 +45,13 @@ export class AuthorsService {
   }
 
   async update(id: number, dto: UpdateAuthorDto): Promise<Author> {
-    const author = await this.findOne(id);
-    const updated = Object.assign(author, dto);
-    return this.authorRepo.save(updated);
+    const result = await this.authorRepo.update(id, dto);
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Author not found');
+    }
+
+    return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {

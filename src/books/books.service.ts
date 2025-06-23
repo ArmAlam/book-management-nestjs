@@ -78,19 +78,22 @@ export class BooksService {
   }
 
   async update(id: number, dto: UpdateBookDto): Promise<Book> {
-    const book = await this.findOne(id);
-
-    if (book.authorId) {
+    if (dto.authorId) {
       const author = await this.authorRepo.findOne({
-        where: { id: book.authorId },
+        where: { id: dto.authorId },
       });
       if (!author) {
         throw new BadRequestException('Author does not exist');
       }
     }
 
-    Object.assign(book, dto);
-    return this.bookRepo.save(book);
+    const result = await this.bookRepo.update(id, dto);
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Book not found');
+    }
+
+    return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
