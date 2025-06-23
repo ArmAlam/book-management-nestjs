@@ -31,8 +31,8 @@ A simple RESTful API built using NestJS and TypeORM, supporting full CRUD operat
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/book-management.git
-cd book-management
+git clone https://github.com/ArmAlam/book-management-nestjs
+cd book-management-nestjs
 ```
 
 #### 2. Install Dependencies
