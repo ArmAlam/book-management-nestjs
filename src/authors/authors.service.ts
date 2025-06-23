@@ -57,7 +57,7 @@ export class AuthorsService {
   async remove(id: number): Promise<void> {
     const author = await this.findOne(id);
 
-    // TODO: REMOVE ASSOCIATED BOOKS
+    // this will also remove books associated with the author due to onDelete: 'CASCADE'
     await this.authorRepo.remove(author);
   }
 }
